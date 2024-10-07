@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-frontend
+  template:
+    metadata:
+      labels:
+        app: node-frontend
+    spec:
+      containers:
+      - name: node-frontend
+        image: gcr.io/flask-app-436123/frontend-service:v1.0
+        env:
+        - name: FLASK_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: frontend-config
+              key: FLASK_SERVER_URL
+        ports:
+        - containerPort: 3000

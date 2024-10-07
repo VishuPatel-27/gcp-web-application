@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-backend-app-deployment
+  labels:
+    app: flask-backend
+spec:
+  replicas: 1  # Number of Pods we want to run
+  selector:
+    matchLabels:
+      app: flask-backend
+  template:
+    metadata:
+      labels:
+        app: flask-backend
+    spec:
+      containers:
+      - name: flask-backend
+        image: gcr.io/flask-app-436123/backend-service:v1.0
+        ports:
+        - containerPort: 5000
+      imagePullSecrets:
+      - name: gcr-json-key  # This references the secret you created for GCR authentication
