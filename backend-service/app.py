@@ -8,7 +8,7 @@ import os
 app = Flask(__name__)
 load_dotenv()
 
-CORS(app,resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app)
 
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB limit, adjust as needed
 
@@ -66,6 +66,12 @@ def upload_document():
     app.logger.info(f"Received request: {request.files}")
     app.logger.info(f"Form data: {request.form}")
 
+    # Clear existing environment variable
+    if "GOOGLE_APPLICATION_CREDENTIALS" in os.environ:
+        del os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
+
+    load_dotenv()
+
     if 'file' not in request.files:
         return jsonify({"message": "No file part in the request"}), 400
 
@@ -81,7 +87,7 @@ def upload_document():
     if file and email:
         try:
 
-            client = storage.Client.from_service_account_json("flask-app-service-account.json")
+            client = storage.Client.from_service_account_json(os.getenv('GOOGLE_APPLICATION_CREDENTIALS'))
             bucket = client.get_bucket(os.getenv('GCP_BUCKET_NAME'))
 
             if not bucket:
@@ -105,8 +111,14 @@ def upload_document():
 @app.route('/list-documents', methods=['POST'])
 def list_documents():
 
+    # Clear existing environment variable
+    if "GOOGLE_APPLICATION_CREDENTIALS" in os.environ:
+        del os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
+
+    load_dotenv()
+
     # Initialize Google Cloud Storage client
-    storage_client = storage.Client.from_service_account_json('flask-app-service-account.json')
+    storage_client = storage.Client.from_service_account_json(os.getenv('GOOGLE_APPLICATION_CREDENTIALS'))
     bucket_name = os.getenv('GCP_BUCKET_NAME')
 
     email = request.json.get('email')
@@ -121,4 +133,4 @@ def list_documents():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
