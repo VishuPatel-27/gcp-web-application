@@ -1,0 +1,8 @@
+.venv
+.idea
+*.env
+*.dockerignore
+/frontend/package-lock.json
+/uploads/
+/frontend/node_modules/
+/backend/service-accounts/

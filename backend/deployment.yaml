@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: flask-backend
-        image: gcr.io/flask-app-436123/backend-service:v1.0
+        image: gcr.io/flask-app-436123/backend:v1.0
         ports:
         - containerPort: 5000
       imagePullSecrets:

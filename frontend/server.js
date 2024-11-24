@@ -8,7 +8,7 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const FLASK_SERVER_URL = process.env.FLASK_SERVER_URL || 'http://flask-server:5000';
-//const FLASK_SERVER_URL = http://localhost:5000
+//const FLASK_SERVER_URL = 'http://localhost:5000'
 
 // Middleware
 app.use(express.json());
@@ -106,7 +106,7 @@ app.post('/login', async (req, res) => {
             // Store the email in localStorage
             // localStorage.setItem('userEmail', email);
             // window.location.href = '/dashboard';
-            console.log('Login successful, redirecting to dashboard');
+            console.log('Login successful, redirecting to dashboard')
             res.redirect(`/dashboard?email=${encodeURIComponent(req.body.email)}`);
         } else {
             console.log('Login failed, showing alert');
