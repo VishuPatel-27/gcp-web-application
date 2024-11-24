@@ -13,5 +13,4 @@ steps:
       - 'push'
       - 'gcr.io/flask-app-436123/frontend-service:${SHORT_SHA}'
 
-options:
-    logging: CLOUD_LOGGING_ONLY
+logsBucket: 'gs://gcp-app-logs'
