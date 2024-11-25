@@ -29,6 +29,7 @@ steps:
       - 'image'
       - 'deployment/frontend-deployment'
       - 'node-frontend=gcr.io/$PROJECT_ID/frontend:${SHORT_SHA}'
+      - '--namespace=frontend-ns'
     env:
       - 'CLOUDSDK_CONTAINER_CLUSTER=web-app-cluster'
       - 'CLOUDSDK_CONTAINER_ZONE=us-central1'
@@ -40,6 +41,7 @@ steps:
       - 'image'
       - 'deployment/flask-backend'
       - 'flask-backend=gcr.io/$PROJECT_ID/backend:${SHORT_SHA}'
+      - '--namespace=backend-ns'
     env:
       - 'CLOUDSDK_CONTAINER_CLUSTER=web-app-cluster'
       - 'CLOUDSDK_CONTAINER_ZONE=us-central1'
