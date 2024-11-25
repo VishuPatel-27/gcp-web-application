@@ -38,7 +38,7 @@ steps:
     args:
       - 'set'
       - 'image'
-      - 'deployment/backend-deployment'
+      - 'deployment/flask-backend'
       - 'flask-backend=gcr.io/$PROJECT_ID/backend:${SHORT_SHA}'
     env:
       - 'CLOUDSDK_CONTAINER_CLUSTER=web-app-cluster'
