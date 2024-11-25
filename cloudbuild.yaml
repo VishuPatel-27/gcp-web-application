@@ -1,6 +1,6 @@
 options:
   env:
-    - 'CLOUDSDK_CONTAINER_CLUSTER= web-app-cluster'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=web-app-cluster'
     - 'CLOUDSDK_CONTAINER_ZONE=us-central1'
     - 'CLOUDSDK_CORE_PROJECT=$PROJECT_ID'
     - 'CLOUDSDK_COMPUTE_REGION=us-central1'
