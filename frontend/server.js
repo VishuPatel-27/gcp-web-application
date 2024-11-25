@@ -7,7 +7,7 @@ const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const FLASK_SERVER_URL = process.env.FLASK_SERVER_URL || 'http://flask-server:5000';
+const FLASK_SERVER_URL = process.env.FLASK_SERVER_URL || 'http://localhost:5000';
 //const FLASK_SERVER_URL = 'http://localhost:5000'
 
 // Middleware
