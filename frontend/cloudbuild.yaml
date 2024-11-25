@@ -8,7 +8,7 @@ options:
 steps:
     # step 1: build the frontend docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/frontend:${SHORT_SHA}', './frontend/Dockerfile' ]
+    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/frontend:${SHORT_SHA}', './frontend/' ]
 
       # step 2: push the frontend docker image to the GCR repository
   - name: 'gcr.io/cloud-builders/docker'
