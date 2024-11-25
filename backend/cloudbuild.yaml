@@ -1,12 +1,12 @@
 steps:
   # Step 1: Build the Docker image
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/$PROJECT_ID/backend:$SHORT_SHA", "-f", "./Dockerfile", "."]
+    args: ["build", "-t", "gcr.io/GCP-Web-Application/backend:$SHORT_SHA","."]
 
   # Step 2: Push the image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'gcr.io/flask-app-436123/backend:${SHORT_SHA}'
+      - 'gcr.io/GCP-Web-Application/backend:${SHORT_SHA}'
 
 logsBucket: 'gs://gcp-app-logs'
