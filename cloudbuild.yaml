@@ -2,14 +2,14 @@ steps:
 
     # step 1: build the both images backend and frontend
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', '$LOCATION.docker.pkg.dev/frontend:$SHORT_SHA', './frontend' ]
+    args: [ 'build', '-t', 'gcr.io/gcp-web-application/frontend:${SHORT_SHA}', './frontend' ]
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', '$LOCATION.docker.pkg.dev/gcp-web-application/backend:$SHORT_SHA', './backend' ]
+    args: [ 'build', '-t', 'gcr.io/gcp-web-application/backend:${SHORT_SHA}', './backend' ]
 
     # step 2: push both images to the GCR repository
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', '$LOCATION.docker.pkg.dev/gcp-web-application/frontend:$SHORT_SHA']
+    args: [ 'push', 'gcr.io/gcp-web-application/frontend:${SHORT_SHA}']
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', '$LOCATION.docker.pkg.dev/gcp-web-application/backend:$SHORT_SHA' ]
+    args: [ 'push', 'gcr.io/gcp-web-application/backend:${SHORT_SHA}' ]
 
 logsBucket: 'gs://gcp-app-logs'
