@@ -8,7 +8,7 @@ options:
 steps:
     # step 1: build the backend docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/backend:${SHORT_SHA}', '.' ]
+    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/backend:${SHORT_SHA}', './backend/Dockerfile' ]
 
     # step 2: push the backend docker image to the GCR repository
   - name: 'gcr.io/cloud-builders/docker'
