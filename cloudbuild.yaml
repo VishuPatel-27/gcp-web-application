@@ -1,3 +1,10 @@
+options:
+  env:
+    - 'CLOUDSDK_CONTAINER_CLUSTER=web-app-cluster'
+    - 'CLOUDSDK_CONTAINER_ZONE=us-central1'
+    - 'CLOUDSDK_CORE_PROJECT=flask-app-436123'
+    - 'CLOUDSDK_COMPUTE_REGION=us-central1'
+
 steps:
     # step 1: build the frontend docker image
   - name: 'gcr.io/cloud-builders/docker'
