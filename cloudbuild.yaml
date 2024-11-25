@@ -20,9 +20,9 @@ steps:
 
     # step 3: deploy application on kubernetes cluster using cloud deploy
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['set', 'image', 'deployment/frontend-ns', 'frontend=gcr.io/$PROJECT_ID/frontend:$SHORT_SHA', '--namespace=frontend-ns']
+    args: ['set', 'image', 'deployment/frontend-deployment', 'frontend=gcr.io/$PROJECT_ID/frontend:$SHORT_SHA', '--namespace=frontend-ns']
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['set', 'image', 'deployment/backend-ns', 'backend=gcr.io/$PROJECT_ID/backend:$SHORT_SHA', '--namespace=backend-ns']
+    args: ['set', 'image', 'deployment/flask-backend-app-deployment', 'backend=gcr.io/$PROJECT_ID/backend:$SHORT_SHA', '--namespace=backend-ns']
 
 
 #  - name: "gcr.io/cloud-builders/gke-deploy"
