@@ -12,4 +12,21 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'push', 'gcr.io/$PROJECT_ID/backend:${SHORT_SHA}' ]
 
+    # step 3: deploy application on kubernetes cluster using cloud deploy
+  - name: "gcr.io/cloud-builders/gke-deploy"
+    args:
+      - run
+      - --filename=./frontend/k8s-manifests/
+      - --image=gcr.io/$PROJECT_ID/frontend:${SHORT_SHA}
+      - --location=${location}
+      - --cluster=web-app-cluster
+
+  - name: "gcr.io/cloud-builders/gke-deploy"
+    args:
+      - run
+      - --filename=./backend/k8s-manifests/
+      - --image=gcr.io/$PROJECT_ID/backend:${SHORT_SHA}
+      - --location=${location}
+      - --cluster=web-app-cluster
+
 logsBucket: 'gs://gcp-app-logs'
