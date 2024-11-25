@@ -9,7 +9,7 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-backend-app-deployment
+  name: flask-backend
   namespace: backend-ns
   labels:
     app: flask-backend
@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: flask-backend
-        image: gcr.io/flask-app-436123/backend:v1.0
+        image: gcr.io/flask-app-436123/backend:1a377f5
         ports:
         - containerPort: 5000
 

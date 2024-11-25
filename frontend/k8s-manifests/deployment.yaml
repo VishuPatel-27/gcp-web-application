@@ -23,10 +23,10 @@ spec:
     spec:
       containers:
       - name: node-frontend
-        image: gcr.io/flask-app-436123/frontend:v1.0
+        image: gcr.io/flask-app-436123/frontend:1a377f5
         env:
         - name: FLASK_SERVER_URL
-          value: "http://flask-backend-service.backend-ns.svc:5000"
+          value: "http://flask-backend-service.backend-ns.svc.cluster.local:5000"
         ports:
         - containerPort: 3000
 ---

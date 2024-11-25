@@ -45,9 +45,9 @@ def login_page():
 def login():
     data = request.json
     email = data['email']
-    password = data['password']
+    user_password = data['password']
 
-    user = get_user(email, password)
+    user = get_user(email, user_password)
 
     if user:
         return jsonify({"message": "Login successful"}), 200

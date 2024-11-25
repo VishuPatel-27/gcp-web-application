@@ -1,36 +1,40 @@
-options:
-  env:
-    - 'CLOUDSDK_CONTAINER_CLUSTER=web-app-cluster'
-    - 'CLOUDSDK_CONTAINER_ZONE=us-central1'
-    - 'CLOUDSDK_CORE_PROJECT=$PROJECT_ID'
-    - 'CLOUDSDK_COMPUTE_REGION=us-central1'
-
 steps:
-    # step 1: build the both images backend and frontend
+    # step 1: build the frontend docker image
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/frontend:${SHORT_SHA}', './frontend' ]
+
+    # step 2: build the backend docker image
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/backend:${SHORT_SHA}', './backend' ]
 
-    # step 2: push both images to the GCR repository
+    # step 3: push the frontend docker image to the GCR repository
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'push', 'gcr.io/$PROJECT_ID/frontend:${SHORT_SHA}']
+
+    # step 4: push the backend docker image to the GCR repository
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'push', 'gcr.io/$PROJECT_ID/backend:${SHORT_SHA}' ]
 
-    # step 3: deploy application on kubernetes cluster using cloud deploy
+  # Step 5: Deploy the frontend to Kubernetes
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['set', 'image', 'deployment/frontend-deployment', 'node-frontend=gcr.io/$PROJECT_ID/frontend:$SHORT_SHA', '--namespace=frontend-ns']
+    args:
+      - 'set'
+      - 'image'
+      - 'deployment/frontend-deployment'
+      - 'node-frontend=gcr.io/$PROJECT_ID/frontend:${SHORT_SHA}'
+    env:
+      - 'CLOUDSDK_CONTAINER_CLUSTER=web-app-cluster'
+      - 'CLOUDSDK_CONTAINER_ZONE=us-central1'
+
+  # Step 6: Deploy the backend to Kubernetes
   - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['set', 'image', 'deployment/flask-backend-app-deployment', 'flask-backend=gcr.io/$PROJECT_ID/backend:$SHORT_SHA', '--namespace=backend-ns']
-
-
-#  - name: "gcr.io/cloud-builders/gke-deploy"
-#    args:
-#      - run
-#      - --filename=./backend/k8s-manifests/
-#      - --image=gcr.io/$PROJECT_ID/backend:${SHORT_SHA}
-#      - --location=${location}
-#      - --cluster=web-app-cluster
+    args:
+      - 'set'
+      - 'image'
+      - 'deployment/backend-deployment'
+      - 'flask-backend=gcr.io/$PROJECT_ID/backend:${SHORT_SHA}'
+    env:
+      - 'CLOUDSDK_CONTAINER_CLUSTER=web-app-cluster'
+      - 'CLOUDSDK_CONTAINER_ZONE=us-central1'
 
 logsBucket: 'gs://gcp-app-logs'
