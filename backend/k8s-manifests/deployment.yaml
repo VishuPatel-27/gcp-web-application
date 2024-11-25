@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: flask-backend
-        image: gcr.io/flask-app-436123/backend:c26e50e
+        image: gcr.io/flask-app-436123/backend
         ports:
         - containerPort: 5000
 
