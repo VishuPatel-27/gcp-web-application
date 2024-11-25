@@ -6,6 +6,15 @@ metadata:
     name: frontend-ns
 ---
 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+data:
+  FLASK_SERVER_URL: "http://flask-backend-service.backend-ns.svc:5000"
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -47,12 +56,3 @@ spec:
       targetPort: 3000
 
   type: NodePort
-
----
-
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: frontend-config
-data:
-  FLASK_SERVER_URL: "http://flask-backend-service.backend-ns.svc:5000"
