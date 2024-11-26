@@ -14,13 +14,13 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'push', 'gcr.io/$PROJECT_ID/backend:${SHORT_SHA}' ]
 
-#  # Step 3: Deploy the backend to Kubernetes
-#  - name: 'gcr.io/cloud-builders/kubectl'
-#    args:
-#      - 'set'
-#      - 'image'
-#      - 'deployment/flask-backend'
-#      - 'flask-backend=gcr.io/$PROJECT_ID/backend:${SHORT_SHA}'
-#      - '--namespace=backend-ns'
+  # Step 3: Deploy the backend to Kubernetes
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - 'set'
+      - 'image'
+      - 'deployment/flask-backend'
+      - 'flask-backend=gcr.io/$PROJECT_ID/backend:${SHORT_SHA}'
+      - '--namespace=backend-ns'
 
 logsBucket: 'gs://gcp-app-logs'
